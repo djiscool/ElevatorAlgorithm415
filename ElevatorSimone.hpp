@@ -8,8 +8,12 @@ class ElevatorSimone {
   public:
 	int currentLevel, currentDirection,
     int runElevator(){
-		input();
-		elevatorAlgorithm();
+		input(){
+			input_local();
+		}
+		elevatorAlgorithm(){
+			
+		}
 		
 	}
 	int stopElevator(){
@@ -20,7 +24,7 @@ class ElevatorSimone {
 	private:
 	int currentWeight, maxHeight, minHeight, idlePosition;
 	queue floorsPressed;
-	int[] input(){
+	int[] input_local(){
 		std::cout << "Enter Floors: " << std::endl;
 		string line;
 		line.getline();

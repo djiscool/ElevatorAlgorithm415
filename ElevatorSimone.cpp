@@ -1,0 +1,4 @@
+ElevatorSimone::ElevatorAlgorithm_local(){
+
+
+}
