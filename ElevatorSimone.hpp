@@ -17,7 +17,12 @@ class ElevatorSimone {
 		
 	}
 	
+	void createBuilding ( int floors, int elevators, vector<vector<char>>& building, vector<char>& temp );
+	
 	private:
+	int floors, elevators;
+	vector<char> temp;
+    vector<vector <char>> building;
 	int currentWeight, maxHeight, minHeight, idlePosition;
 	queue floorsPressed;
 	int[] elevatorAlgorithm(int[] a);
