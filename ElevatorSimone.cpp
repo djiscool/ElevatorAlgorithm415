@@ -1,10 +1,14 @@
+#include <iostream>
 #include "ElevatorSimone.hpp"
 using namespace std;
-int[] ElevatorSimone::ElevatorAlgorithm(){
-
-
+ElevatorSimone::ElevatorSimone(){
+	 idlePosition = (maxHeight + minHeight)/2;
+	 currentLevel = idlePosition;
+	 currentWeight = 0;
+	 currentDirection = 0; // -1: down 0: not moving 1: up	 
 }
-int[] ElevatorSimone::input(){
+	 
+void ElevatorSimone::input(){
 		  
     cout << "How many floors does the building have?: ";
     cin >> floors;
@@ -21,9 +25,9 @@ int[] ElevatorSimone::input(){
         for ( const auto &s : row ) cout << s << ' ';
         cout << endl;
     }
-	}
+}
 	
-	void ElevatorSimone::createBuilding ( ){
+void ElevatorSimone::createBuilding ( ){
     int width = (5 * (elevators/2));
     if (width == 0)
         width = 5;
@@ -50,4 +54,8 @@ int[] ElevatorSimone::input(){
         }
     for (int x = 0; x < elevators; x++)
         building[floors][(((width) / 2) - x)] = 'X';
+}
+
+void ElevatorSimone::elevatorAlgorithm(int a[]){	//will clobber array
+
 }
