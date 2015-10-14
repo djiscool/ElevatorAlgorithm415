@@ -6,6 +6,8 @@ ElevatorSimone::ElevatorSimone(){
 	 currentLevel = idlePosition;
 	 currentWeight = 0;
 	 currentDirection = 0; // -1: down 0: not moving 1: up	 
+	 elevators =0;
+	 currentFloorCheck =0;
 }
 	 
 void ElevatorSimone::input(){
@@ -57,65 +59,65 @@ void ElevatorSimone::createBuilding ( ){
 }
 
 
-void upFloor (){
-	if (curFloorCheck < floors){
+void ElevatorSimone::upFloor (){
+	if (currentFloorCheck < floors){
 		for (int i =0; i < width; i ++){
 			if (i==0)
 			{
-				building[curFloor][i] = '|';
+				building[currentLevel][i] = '|';
 			}
 			for (int y = 1; y < (width -1); y++){
-				building[curFloor][y] = ' ';
+				building[currentLevel][y] = ' ';
 			}
-			building[curFloor][width] = '|';
+			building[currentLevel][width] = '|';
 		}
-		curFloor -= 1;
+		currentLevel -= 1;
 		for (int i =0; i < width; i++){
 			if (i==0)
 			{
-				building[curFloor][i] = '|';
+				building[currentLevel][i] = '|';
 			}
 			for (int y = 1; y < (width -1); y++){
-				building[curFloor][y] = ' ';
+				building[currentLevel][y] = ' ';
 			}
-			building[curFloor][width-1] = '|';
+			building[currentLevel][width-1] = '|';
 		}
 		for (int x = 0; x < elevators; x++)
-			building[curFloor][(((width) / 2) - x)] = 'X';
+			building[currentLevel][(((width) / 2) - x)] = 'X';
 
 	}
-	curFloorCheck += 1;
+	currentFloorCheck += 1;
 }
 
-void downFloor (){
-	if (curFloorCheck < floors){
+void ElevatorSimone::downFloor (){
+	if (currentFloorCheck < floors){
 		for (int i =0; i < width; i ++){
 			if (i==0)
 			{
-				building[curFloor][i] = '|';
+				building[currentLevel][i] = '|';
 			}
 			for (int y = 1; y < (width -1); y++){
-				building[curFloor][y] = ' ';
+				building[currentLevel][y] = ' ';
 			}
-			building[curFloor][width] = '|';
+			building[currentLevel][width] = '|';
 		}
-		curFloor += 1;
+		currentLevel += 1;
 		for (int i =0; i < width; i++){
 			if (i==0)
 			{
-				building[curFloor][i] = '|';
+				building[currentLevel][i] = '|';
 			}
 			for (int y = 1; y < (width -1); y++){
-				building[curFloor][y] = ' ';
+				building[currentLevel][y] = ' ';
 			}
-			building[curFloor][width-1] = '|';
+			building[currentLevel][width-1] = '|';
 		}
 		for (int x = 0; x < elevators; x++)
-			building[curFloor][(((width) / 2) - x)] = 'X';
+			building[currentLevel][(((width) / 2) - x)] = 'X';
 
 	}
 
-curFloorCheck -= 1;
+currentFloorCheck -= 1;
 }
 
 void ElevatorSimone::elevatorAlgorithm(int a[]){	//will clobber array
