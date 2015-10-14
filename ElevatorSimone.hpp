@@ -13,6 +13,8 @@ class ElevatorSimone {
 	int stopElevator(){
 		
 	}
+	void downFloor ();
+	void upFloor ();
 	
 	
 	

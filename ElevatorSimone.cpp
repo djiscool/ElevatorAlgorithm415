@@ -56,6 +56,68 @@ void ElevatorSimone::createBuilding ( ){
         building[floors][(((width) / 2) - x)] = 'X';
 }
 
+
+void upFloor (){
+	if (curFloorCheck < floors){
+		for (int i =0; i < width; i ++){
+			if (i==0)
+			{
+				building[curFloor][i] = '|';
+			}
+			for (int y = 1; y < (width -1); y++){
+				building[curFloor][y] = ' ';
+			}
+			building[curFloor][width] = '|';
+		}
+		curFloor -= 1;
+		for (int i =0; i < width; i++){
+			if (i==0)
+			{
+				building[curFloor][i] = '|';
+			}
+			for (int y = 1; y < (width -1); y++){
+				building[curFloor][y] = ' ';
+			}
+			building[curFloor][width-1] = '|';
+		}
+		for (int x = 0; x < elevators; x++)
+			building[curFloor][(((width) / 2) - x)] = 'X';
+
+	}
+	curFloorCheck += 1;
+}
+
+void downFloor (){
+	if (curFloorCheck < floors){
+		for (int i =0; i < width; i ++){
+			if (i==0)
+			{
+				building[curFloor][i] = '|';
+			}
+			for (int y = 1; y < (width -1); y++){
+				building[curFloor][y] = ' ';
+			}
+			building[curFloor][width] = '|';
+		}
+		curFloor += 1;
+		for (int i =0; i < width; i++){
+			if (i==0)
+			{
+				building[curFloor][i] = '|';
+			}
+			for (int y = 1; y < (width -1); y++){
+				building[curFloor][y] = ' ';
+			}
+			building[curFloor][width-1] = '|';
+		}
+		for (int x = 0; x < elevators; x++)
+			building[curFloor][(((width) / 2) - x)] = 'X';
+
+	}
+
+curFloorCheck -= 1;
+}
+
 void ElevatorSimone::elevatorAlgorithm(int a[]){	//will clobber array
 
 }
