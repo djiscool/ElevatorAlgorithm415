@@ -2,8 +2,6 @@
 #include "ElevatorSimone.hpp"
 using namespace std;
 ElevatorSimone::ElevatorSimone(){
-	 idlePosition = (maxHeight + minHeight)/2;
-	 currentLevel = idlePosition;
 	 currentWeight = 0;
 	 currentDirection = 0; // -1: down 0: not moving 1: up	 
 	 elevators = 0;
@@ -18,7 +16,10 @@ void ElevatorSimone::input(){
     cin >> elevators;
     cout << endl;
    
-    
+    	maxHeight = floors;
+	minHeight = 0;
+	idlePosition = (maxHeight + minHeight)/2;
+	 currentLevel = idlePosition;
    
     createBuilding();
     // print building
@@ -31,10 +32,11 @@ void ElevatorSimone::input(){
 	
 void ElevatorSimone::createBuilding ( ){
     // Remember this definition of with is local to the function
-    int width = (5 * (elevators/2));
+    width = (5 * (elevators/2));
     if (width == 0)
         width = 5;
- 
+ 	
+	std::cout << "width initialized to: " << width << std::endl;
     for (int i = 0; i < floors; i++){
         if (i == 0){
             for (int z = 0; z < width; z++){
@@ -65,6 +67,8 @@ void ElevatorSimone::upFloor (){
 		for (int i =0; i < width; i ++){
 			if (i==0)
 			{
+				std::cout << "currentLevel: " << currentLevel << endl;
+				std::cout << "i: " << i << endl;
 				building[currentLevel][i] = '|';
 			}
             
