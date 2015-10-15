@@ -1,6 +1,9 @@
 CC=g++
-CFLAgs=-std=c++11
+CFLAGS=-std=c++11
 
 elevator.x: ElevatorSimone.cpp ElevatorSimone.hpp main.cpp
-	$(CC) -ggdb -o elevator.x ElevatorSimone.cpp main.cpp -std=c++11
+	$(CC) -ggdb -o elevator.x ElevatorSimone.cpp main.cpp $(CFLAGS)
+
+clean:
+	rm -f *.o *.x ~* core
 

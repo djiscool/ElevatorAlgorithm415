@@ -6,8 +6,8 @@ ElevatorSimone::ElevatorSimone(){
 	 currentLevel = idlePosition;
 	 currentWeight = 0;
 	 currentDirection = 0; // -1: down 0: not moving 1: up	 
-	 elevators =0;
-	 currentFloorCheck =0;
+	 elevators = 0;
+	 currentFloorCheck = 0;
 }
 	 
 void ElevatorSimone::input(){
@@ -30,6 +30,7 @@ void ElevatorSimone::input(){
 }
 	
 void ElevatorSimone::createBuilding ( ){
+    // Remember this definition of with is local to the function
     int width = (5 * (elevators/2));
     if (width == 0)
         width = 5;
@@ -42,18 +43,18 @@ void ElevatorSimone::createBuilding ( ){
             building.push_back(temp);
             temp.clear();
         }
-            for (int j = 0; j <= floors; j++){
-                if (j == 0){
-                    temp.push_back('|');
-                    for (int y = 1; y < (width -1); y++){
-                        temp.push_back(' ');
-                    }
-                    temp.push_back('|');
-                    building.push_back(temp);
-                    temp.clear();
+        for (int j = 0; j <= floors; j++){
+            if (j == 0){
+                temp.push_back('|');
+                for (int y = 1; y < (width -1); y++){
+                    temp.push_back(' ');
                 }
+                temp.push_back('|');
+                building.push_back(temp);
+                temp.clear();
             }
         }
+    }
     for (int x = 0; x < elevators; x++)
         building[floors][(((width) / 2) - x)] = 'X';
 }
@@ -66,6 +67,10 @@ void ElevatorSimone::upFloor (){
 			{
 				building[currentLevel][i] = '|';
 			}
+            
+            // Here's the segfault
+            // width in private: section of header never initialized
+            cout << "Width: " << width << endl;
 			for (int y = 1; y < (width -1); y++){
 				building[currentLevel][y] = ' ';
 			}
