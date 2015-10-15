@@ -3,14 +3,13 @@ using namespace std;
 class ElevatorSimone {
   public:
 	ElevatorSimone();
-	int currentLevel, currentDirection;
 	void input();
-    int runElevator(){
+    void runElevator(){
 		input();
 		//elevatorAlgorithm();
 		
 	}
-	int stopElevator(){
+	void stopElevator(){
 		
 	}
 	void downFloor ();
@@ -20,12 +19,17 @@ class ElevatorSimone {
 	
 	private:
 	int floors, elevators, width;
+    int currentLevel, currentDirection;
+    
 	vector<char> temp;
     vector<vector <char> > building;
-	int currentWeight, maxHeight, minHeight, idlePosition;
+	
+    int currentWeight, maxHeight, minHeight, idlePosition;
 	int currentFloorCheck;
-	//queue floorsPressed;
-	void createBuilding ( );
+	
+    //queue floorsPressed;
+	
+    void createBuilding ( );
 	void elevatorAlgorithm(int a[]);	//will clobber array
 	
 };
