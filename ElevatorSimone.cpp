@@ -28,6 +28,8 @@ void ElevatorSimone::input(){
         for ( const auto &s : row ) cout << s << ' ';
         cout << endl;
     }
+
+	std::cout << "currentLevel: " << currentLevel << endl;
 }
 	
 void ElevatorSimone::createBuilding ( ){
@@ -59,6 +61,8 @@ void ElevatorSimone::createBuilding ( ){
     }
     for (int x = 0; x < elevators; x++)
         building[floors][(((width) / 2) - x)] = 'X';
+
+
 }
 
 
@@ -67,14 +71,11 @@ void ElevatorSimone::upFloor (){
 		for (int i =0; i < width; i ++){
 			if (i==0)
 			{
-				std::cout << "currentLevel: " << currentLevel << endl;
-				std::cout << "i: " << i << endl;
+
 				building[currentLevel][i] = '|';
 			}
             
-            // Here's the segfault
-            // width in private: section of header never initialized
-            cout << "Width: " << width << endl;
+            //cout << "Width: " << width << endl;
 			for (int y = 1; y < (width -1); y++){
 				building[currentLevel][y] = ' ';
 			}
@@ -93,7 +94,7 @@ void ElevatorSimone::upFloor (){
 		}
 		for (int x = 0; x < elevators; x++)
 			building[currentLevel][(((width) / 2) - x)] = 'X';
-
+			std::cout << "currentLevel: " << currentLevel << endl;
 	}
 	currentFloorCheck += 1;
 }
@@ -123,7 +124,7 @@ void ElevatorSimone::downFloor (){
 		}
 		for (int x = 0; x < elevators; x++)
 			building[currentLevel][(((width) / 2) - x)] = 'X';
-
+			std::cout << "currentLevel: " << currentLevel << endl;
 	}
 
 currentFloorCheck -= 1;
