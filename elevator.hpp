@@ -9,10 +9,11 @@ private:
     int curLevel;
     int curCount;
     int curWt;
-    int max_level;
+    int MAXLEVEL;
         
 public:
-	void create_new_elevator(int , int);
+	elevator();
+	void create_new_elevator(int , int, int);
 	void move_up();
 	void move_down();
 	void stop_elv();
