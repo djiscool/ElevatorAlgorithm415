@@ -1,11 +1,13 @@
 #include <iostream>
 #include "ElevatorSimone.hpp"
+
 using namespace std;
 ElevatorSimone::ElevatorSimone(){
 	 currentWeight = 0;
 	 currentDirection = 0; // -1: down 0: not moving 1: up	 
 	 elevators = 0;
 	 currentFloorCheck = 0;
+	 elevator1 = new elevator();
 }
 	 
 void ElevatorSimone::input(){
@@ -67,6 +69,7 @@ void ElevatorSimone::createBuilding ( ){
 
 
 void ElevatorSimone::upFloor (){
+	elevator1->move_up();
 	if (currentFloorCheck < floors){
 		for (int i =0; i < width; i ++){
 			if (i==0)
