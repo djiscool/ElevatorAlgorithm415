@@ -1,11 +1,14 @@
-CC=g++
+all: CS415_Elevator.x
 CFLAGS=-std=c++11
+DEPS=cs415_elevator.hpp
+CC=g++
+OPT=-Ofast
 
-elevator.x: ElevatorSimone.cpp ElevatorSimone.hpp main.cpp elevator.o
-	$(CC) -ggdb -o elevator.x ElevatorSimone.cpp main.cpp elevator.o $(CFLAGS)
+CS415_Elevator.x: main.cpp cs415_elevator.cpp 
+	$(CC) -o $@ $^ $(CFLAGS)
 
-elevator.o: elevator.cpp elevator.hpp
-	$(CC) -ggdb -c elevator.cpp $(CFLAGS)
+%.o: %.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
 clean:
-	rm -f *.o *.x ~* core
-
+	rm -f *.o *.x *~ core
