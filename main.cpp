@@ -2,27 +2,39 @@
  * CS415 Elevator Main
  ***********************/
 #include <iostream>
+#include <vector>
 #include "cs415_elevator.hpp"
 
 int main(int argc, char **argv)
 {
-	cs415_elevator E1;
-
+    std::vector<cs415_elevator*> *elevators = new std::vector<cs415_elevator*>;
 	int buildingFloors = 0;
 	int numElevators = 0;
+    enum direction { DOWN = -1, IDLE = 0, UP = 1 };
+    
 	std::cout << "Building has how many floors? ";
 	std::cin >> buildingFloors;
+    
 	std::cout << "How many elevators in the building? ";
 	std::cin >> numElevators;
-
-	E1.set_current_floor(4);
-	E1.call();
-	std::cout << "Current floor: " << E1.get_current_floor() << std::endl;
-	E1.set_floor_req(7);
-	std::cout << "Requested floor: " << E1.get_floor_req() << std::endl;
-	E1.move_up();
-	E1.move_down();
-	
+    
+    // Make a vector of elevators
+    for(int i = 0; i < numElevators; i++) {
+        cs415_elevator *tmp = new cs415_elevator;
+        elevators->push_back(tmp);
+    }
+    
+    std::cout << "Elevators installed: " << elevators->size() << std::endl;
+    
+    for(int i = 0; i < numElevators; i++) {
+        std::cout << "Elevator: " << i << " is at floor: " << elevators->at(i)->get_current_floor() << std::endl;
+    }
+    
+    
+    // Free up pointers
+    elevators->clear();
+    delete elevators;
+    
 	return 0;
 }
 
