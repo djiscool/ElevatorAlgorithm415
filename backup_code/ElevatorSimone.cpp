@@ -2,52 +2,12 @@
 #include "ElevatorSimone.hpp"
 
 using namespace std;
-
 ElevatorSimone::ElevatorSimone(){
 	 currentWeight = 0;
 	 currentDirection = 0; // -1: down 0: not moving 1: up	 
 	 elevators = 0;
 	 currentFloorCheck = 0;
 	 elevator1 = new elevator();
-}
-
-void ElevatorSimone::updatePrintVector(int direction){ // 0 for up 1 for down
-
-	if (currentFloorCheck < floors){
-		for (int i =0; i < width; i ++){
-			if (i==0)
-			{
-
-				building[currentLevel][i] = '|';
-			}
-            
-            //cout << "Width: " << width << endl;
-			for (int y = 1; y < (width -1); y++){
-				building[currentLevel][y] = ' ';
-			}
-			building[currentLevel][width] = '|';
-		}
-		currentLevel -= 1;
-		for (int i =0; i < width; i++){
-			if (i==0)
-			{
-				building[currentLevel][i] = '|';
-			}
-			for (int y = 1; y < (width -1); y++){
-				building[currentLevel][y] = ' ';
-			}
-			building[currentLevel][width-1] = '|';
-		}
-		for (int x = 0; x < elevators; x++)
-			building[currentLevel][(((width) / 2) - x)] = 'X';
-			std::cout << "currentLevel: " << currentLevel << endl;
-	}
-	if(direction){
-		currentFloorCheck += 1;
-	}
-	else{
-		currentFloorCheck -= 1;
-	}
 }
 	 
 void ElevatorSimone::input(){
@@ -80,7 +40,7 @@ void ElevatorSimone::createBuilding ( ){
     if (width == 0)
         width = 5;
  	
-	//std::cout << "width initialized to: " << width << std::endl;
+	std::cout << "width initialized to: " << width << std::endl;
     for (int i = 0; i < floors; i++){
         if (i == 0){
             for (int z = 0; z < width; z++){
@@ -110,13 +70,67 @@ void ElevatorSimone::createBuilding ( ){
 
 void ElevatorSimone::upFloor (){
 	elevator1->move_up();
-	updatePrintVector(0);
+	if (currentFloorCheck < floors){
+		for (int i =0; i < width; i ++){
+			if (i==0)
+			{
+
+				building[currentLevel][i] = '|';
+			}
+            
+            //cout << "Width: " << width << endl;
+			for (int y = 1; y < (width -1); y++){
+				building[currentLevel][y] = ' ';
+			}
+			building[currentLevel][width] = '|';
+		}
+		currentLevel -= 1;
+		for (int i =0; i < width; i++){
+			if (i==0)
+			{
+				building[currentLevel][i] = '|';
+			}
+			for (int y = 1; y < (width -1); y++){
+				building[currentLevel][y] = ' ';
+			}
+			building[currentLevel][width-1] = '|';
+		}
+		for (int x = 0; x < elevators; x++)
+			building[currentLevel][(((width) / 2) - x)] = 'X';
+			std::cout << "currentLevel: " << currentLevel << endl;
+	}
+	currentFloorCheck += 1;
 }
 
 void ElevatorSimone::downFloor (){
-	elevator1->move_down();
-	updatePrintVector(1);
-	
+	if (currentFloorCheck < floors){
+		for (int i =0; i < width; i ++){
+			if (i==0)
+			{
+				building[currentLevel][i] = '|';
+			}
+			for (int y = 1; y < (width -1); y++){
+				building[currentLevel][y] = ' ';
+			}
+			building[currentLevel][width] = '|';
+		}
+		currentLevel += 1;
+		for (int i =0; i < width; i++){
+			if (i==0)
+			{
+				building[currentLevel][i] = '|';
+			}
+			for (int y = 1; y < (width -1); y++){
+				building[currentLevel][y] = ' ';
+			}
+			building[currentLevel][width-1] = '|';
+		}
+		for (int x = 0; x < elevators; x++)
+			building[currentLevel][(((width) / 2) - x)] = 'X';
+			std::cout << "currentLevel: " << currentLevel << endl;
+	}
+
+currentFloorCheck -= 1;
 }
 
 void ElevatorSimone::elevatorAlgorithm(int a[]){	//will clobber array

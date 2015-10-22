@@ -2,7 +2,6 @@
 #include "elevator.hpp"
 
 using namespace std;
-
 class ElevatorSimone {
   public:
 	ElevatorSimone();
@@ -32,7 +31,6 @@ class ElevatorSimone {
 	
     //queue floorsPressed;
 	
-	void updatePrintVector(int direction){ // 0 for up 1 for down
     	void createBuilding ( );
 	void elevatorAlgorithm(int a[]);	//will clobber array
 	
