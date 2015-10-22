@@ -10,5 +10,11 @@ CS415_Elevator.x: main.cpp cs415_elevator.cpp
 %.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+CS415_Elevator.x: main.cpp cs415_elevator.cpp 
+	$(CC) -o $@ $^ $(CFLAGS)
+
+%.o: %.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
 clean:
 	rm -f *.o *.x *~ core
