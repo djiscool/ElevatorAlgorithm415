@@ -5,7 +5,7 @@
  *
  ***********************/
 #include <iostream>
-
+#include <queue>
 class cs415_elevator
 {
 	public:
@@ -23,11 +23,14 @@ class cs415_elevator
 		int get_req_floor();
 		void set_req_floor(int floor);
 
+
 	private:
 		int currentFloor;
 		int floorReq;
-        enum direction { DOWN = -1, IDLE = 0, UP = 1 };
-        bool summoned;
+		int direction;
+        	bool summoned;
+		std::queue<int> floorQueue;
+        	enum direction { DOWN = -1, IDLE = 0, UP = 1 };
 };
 
 #endif

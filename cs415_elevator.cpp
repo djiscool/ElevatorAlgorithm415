@@ -4,36 +4,54 @@ cs415_elevator::cs415_elevator()
 {
 	currentFloor = 0;
 	floorReq = 0;
-    summoned = false;
+    	summoned = false;
+	direction = IDLE;
 }
 
 cs415_elevator::~cs415_elevator()
 {
 }
 
-void cs415_elevator::call(int direction)
-{
-    if( !(direction >= -1 && direction <= 1) ) {
+void cs415_elevator::call(int input_direction)
+{	
+
+    if( !(input_direction >= -1 && input_direction <= 1) ) {
         std::cout << "A proper direction was not given." << std::endl;
     } else {
-        if( direction == -1 )
+	if( direction == IDLE){
+		direction = input_direction;		
+	}
+	else{
+		std::cout << "Elevator going opposite direction, called ignored" << std::endl;
+		return;
+	}
+        if( input_direction == DOWN ){
             std::cout << "Elevator called to head down." << std::endl;
-        
-        if( direction == 1 )
+            //move_down();
+	}
+        if( input_direction == UP ){
             std::cout << "Elevator called to head up." << std::endl;
-        
-        if( direction == 0 )
+       	    //move_up();
+	}
+        if( input_direction == IDLE )
             std::cout << "Elevator is idle." << std::endl;
-    }
+    
+	if(floorQueue.front() != get_req_floor()){
+		floorQueue.push(get_req_floor());
+	}
+	}
 }
+
 
 void cs415_elevator::move_up()
 {
+	currentFloor++;
 	std::cout << "Move elevator up" << std::endl;
 }
 
 void cs415_elevator::move_down()
 {
+	currentFloor--;
 	std::cout << "Move elevator down" << std::endl;
 }
 
