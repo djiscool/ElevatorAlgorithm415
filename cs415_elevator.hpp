@@ -22,9 +22,11 @@ class cs415_elevator
 
 		int get_req_floor();
 		void set_req_floor(int floor);
-
-
+		
+		void setMax(int MAX);
+		void executeQueue();
 	private:
+		int maxFloors;
 		int currentFloor;
 		int floorReq;
 		int direction;

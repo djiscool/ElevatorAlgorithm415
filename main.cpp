@@ -35,9 +35,6 @@ do{
 	std::cout << "Enter floor you are on(-1 to quit)";
 	std::cin >> inputFloor;
 	
-	if(direction == -1 || inputFloor == -1)
-		break;
-	
 	std::cout << "Enter desired direction (1:UP, 2:DOWN)";
 	std::cin >> direction;
 	if(direction == -1 || inputFloor == -1)
@@ -53,11 +50,10 @@ do{
     	elevators->at(0)->set_req_floor(inputFloor);
 	elevators->at(0)->call(direction);
 	
-        std::cout << "Elevator: " << 0 << " is at floor: " << elevators->at(0)->get_current_floor() << std::endl;
-	
-	}while(direction == -1 || inputFloor == -1 || direction == 1 || direction == 2 );
- 
 
+	}while((direction == -1 || direction == 1) &&  inputFloor != -1) ;
+ 
+	elevators->at(0)->executeQueue();
     
     // Free up pointers
     elevators->clear();
