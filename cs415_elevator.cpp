@@ -4,37 +4,106 @@ cs415_elevator::cs415_elevator()
 {
 	currentFloor = 0;
 	floorReq = 0;
-    summoned = false;
+    	summoned = false;
+	direction = IDLE;
+	maxFloors = 0;
 }
 
 cs415_elevator::~cs415_elevator()
 {
 }
 
-void cs415_elevator::call(int direction)
-{
-    if( !(direction >= -1 && direction <= 1) ) {
+void cs415_elevator::call(int input_direction)
+{	
+	int whichQueue = 0;
+    if( !(input_direction >= -1 && input_direction <= 1) ) {
         std::cout << "A proper direction was not given." << std::endl;
     } else {
-        if( direction == -1 )
+	if( direction == IDLE){
+		direction = input_direction;		
+	}
+	if(input_direction != direction){
+		std::cout << "Elevator is going opposite direction, call queued for later" << std::endl;
+	}
+	
+        if( input_direction == DOWN ){
             std::cout << "Elevator called to head down." << std::endl;
-        
-        if( direction == 1 )
+            //move_down();
+		whichQueue = DOWN;
+	}
+        else if( input_direction == UP ){
             std::cout << "Elevator called to head up." << std::endl;
-        
-        if( direction == 0 )
+       	    //move_up();
+		whichQueue = UP;
+	}
+        else if( input_direction == IDLE )
             std::cout << "Elevator is idle." << std::endl;
-    }
+    
+	if(whichQueue == UP){
+		minQueue.push(get_req_floor());
+	}else{
+		maxQueue.push(get_req_floor());
+	}
+	
+}
+}
+void cs415_elevator::executeQueue(){
+	//go through queue to each floor
+	
+	int flr;
+	if(direction == UP){
+
+	while(!minQueue.empty()){
+		flr = minQueue.top();
+		minQueue.pop();
+		currentFloor = flr;
+
+		std::cout << "waiting for move ......." << std::endl;
+		std::cout << "moved to " << currentFloor << std::endl;
+
+	}	
+
+	}else{
+
+
+	while(!maxQueue.empty()){
+		flr = maxQueue.top();
+		maxQueue.pop();
+		currentFloor = flr;
+
+		std::cout << "waiting for move ......." << std::endl;
+		std::cout << "moved to " << currentFloor << std::endl;
+
+	}
+	}	
+}
+
+void cs415_elevator::setMax(int MAX){
+	maxFloors = MAX;
 }
 
 void cs415_elevator::move_up()
 {
-	std::cout << "Move elevator up" << std::endl;
+	if(currentFloor < maxFloors){ 
+		currentFloor++;
+		std::cout << "Move elevator up" << std::endl;
+	}
+	else
+		std::cout << "Can't move up" << std::endl;
+
 }
 
 void cs415_elevator::move_down()
 {
+
+	if(currentFloor > 1){
+	currentFloor--;
 	std::cout << "Move elevator down" << std::endl;
+	}
+	else{
+		std::cout << "Can't move down" << std::endl;
+
+	}
 }
 
 int cs415_elevator::get_current_floor()

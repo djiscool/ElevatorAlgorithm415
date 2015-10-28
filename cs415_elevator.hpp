@@ -5,7 +5,7 @@
  *
  ***********************/
 #include <iostream>
-
+#include <queue>
 class cs415_elevator
 {
 	public:
@@ -22,12 +22,28 @@ class cs415_elevator
 
 		int get_req_floor();
 		void set_req_floor(int floor);
-
+		
+		void setMax(int MAX);
+		void executeQueue();
 	private:
+		struct compare  
+		{  
+  			bool operator()(const int& l, const int& r)  
+  			{	  
+      				return l > r;  
+  			}		  
+		};
+
+		int maxFloors;
 		int currentFloor;
 		int floorReq;
-        enum direction { DOWN = -1, IDLE = 0, UP = 1 };
-        bool summoned;
-};
+		int direction;
+        	bool summoned;
+		std::priority_queue<int> maxQueue;
+		std::queue<int> floorQueue;
+        	std::priority_queue<int,std::vector<int>, compare > minQueue;  
+		enum direction { DOWN = -1, IDLE = 0, UP = 1 };
 
+
+};
 #endif
