@@ -26,13 +26,24 @@ class cs415_elevator
 		void setMax(int MAX);
 		void executeQueue();
 	private:
+		struct compare  
+		{  
+  			bool operator()(const int& l, const int& r)  
+  			{	  
+      				return l > r;  
+  			}		  
+		};
+
 		int maxFloors;
 		int currentFloor;
 		int floorReq;
 		int direction;
         	bool summoned;
+		std::priority_queue<int> maxQueue;
 		std::queue<int> floorQueue;
-        	enum direction { DOWN = -1, IDLE = 0, UP = 1 };
-};
+        	std::priority_queue<int,std::vector<int>, compare > minQueue;  
+		enum direction { DOWN = -1, IDLE = 0, UP = 1 };
 
+
+};
 #endif

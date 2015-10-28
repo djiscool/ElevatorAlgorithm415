@@ -15,7 +15,7 @@ cs415_elevator::~cs415_elevator()
 
 void cs415_elevator::call(int input_direction)
 {	
-
+	int whichQueue = 0;
     if( !(input_direction >= -1 && input_direction <= 1) ) {
         std::cout << "A proper direction was not given." << std::endl;
     } else {
@@ -23,39 +23,59 @@ void cs415_elevator::call(int input_direction)
 		direction = input_direction;		
 	}
 	if(input_direction != direction){
-		std::cout << "Elevator is going opposite direction, call ignored" << std::endl;
+		std::cout << "Elevator is going opposite direction, call queued for later" << std::endl;
 	}
-	else{
 	
         if( input_direction == DOWN ){
             std::cout << "Elevator called to head down." << std::endl;
             //move_down();
+		whichQueue = DOWN;
 	}
-        if( input_direction == UP ){
+        else if( input_direction == UP ){
             std::cout << "Elevator called to head up." << std::endl;
        	    //move_up();
+		whichQueue = UP;
 	}
-        if( input_direction == IDLE )
+        else if( input_direction == IDLE )
             std::cout << "Elevator is idle." << std::endl;
     
-	if(floorQueue.front() != get_req_floor()){
-		floorQueue.push(get_req_floor());
+	if(whichQueue == UP){
+		minQueue.push(get_req_floor());
+	}else{
+		maxQueue.push(get_req_floor());
 	}
-	}
+	
 }
 }
 void cs415_elevator::executeQueue(){
 	//go through queue to each floor
+	
 	int flr;
-	while(flr = floorQueue.front()){
-		floorQueue.pop();
+	if(direction == UP){
+
+	while(!minQueue.empty()){
+		flr = minQueue.top();
+		minQueue.pop();
 		currentFloor = flr;
 
-		std::cout << "waiting to move ......." << std::endl;
-		std::cout << "moved to " << flr << std::endl;
+		std::cout << "waiting for move ......." << std::endl;
+		std::cout << "moved to " << currentFloor << std::endl;
+
+	}	
+
+	}else{
+
+
+	while(!maxQueue.empty()){
+		flr = maxQueue.top();
+		maxQueue.pop();
+		currentFloor = flr;
+
+		std::cout << "waiting for move ......." << std::endl;
+		std::cout << "moved to " << currentFloor << std::endl;
 
 	}
-	
+	}	
 }
 
 void cs415_elevator::setMax(int MAX){
