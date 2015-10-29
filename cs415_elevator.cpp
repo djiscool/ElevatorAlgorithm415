@@ -58,20 +58,26 @@ void cs415_elevator::executeQueue(){
 		while(!minQueue.empty()){
 			flr = minQueue.top();
 			minQueue.pop();
-			currentFloor = flr;
-
-			std::cout << "waiting for move ......." << std::endl;
-			std::cout << "moved to " << currentFloor << std::endl;
+			while(currentFloor <= flr){
+				std::cout << "waiting for move ......." << std::endl;
+				std::cout << "moved to " << currentFloor << std::endl;
+				if(flr != currentFloor){
+					move_up();
+			}
+			}
 		}	
 	}
 	else if(direction == DOWN){
 		while(!maxQueue.empty()){
 			flr = maxQueue.top();
 			maxQueue.pop();
-			currentFloor = flr;
-
-			std::cout << "waiting for move ......." << std::endl;
-			std::cout << "moved to " << currentFloor  << std::endl;
+			while(currentFloor >= flr){
+				std::cout << "waiting for move ......." << std::endl;
+				std::cout << "moved to " << currentFloor << std::endl;
+				if(flr != currentFloor){
+					move_down();
+			}
+			}
 		}
 	}
 	if(direction == UP){

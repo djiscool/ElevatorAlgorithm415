@@ -17,8 +17,11 @@ int main(int argc, char **argv)
 	std::cout << "Building has how many floors? ";
 	std::cin >> buildingFloors;
     
+	
+	
 	std::cout << "How many elevators in the building? ";
 	std::cin >> numElevators;
+	
     
     // Make a vector of elevators
     for(int i = 0; i < numElevators; i++) {
@@ -27,7 +30,7 @@ int main(int argc, char **argv)
     }
     
     std::cout << "Elevators installed: " << elevators->size() << std::endl;
-    
+    elevators->at(0)->setMax(buildingFloors);
     for(int i = 0; i < numElevators; i++) {
         std::cout << "Elevator: " << i+1 << " is at floor: " << elevators->at(i)->get_current_floor() << std::endl;
     }
