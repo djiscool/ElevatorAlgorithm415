@@ -2,7 +2,7 @@
 //constructor
 cs415_elevator::cs415_elevator()
 {
-	currentFloor = 0;
+	currentFloor = 1;
 	floorReq = 0;
     	summoned = false;
 	direction = IDLE;
@@ -71,7 +71,7 @@ void cs415_elevator::executeQueue(){
 			currentFloor = flr;
 
 			std::cout << "waiting for move ......." << std::endl;
-			std::cout << "moved to " << currentFloor << std::endl;
+			std::cout << "moved to " << currentFloor  << std::endl;
 		}
 	}
 	if(direction == UP){

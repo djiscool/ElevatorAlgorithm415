@@ -29,7 +29,7 @@ int main(int argc, char **argv)
     std::cout << "Elevators installed: " << elevators->size() << std::endl;
     
     for(int i = 0; i < numElevators; i++) {
-        std::cout << "Elevator: " << i << " is at floor: " << elevators->at(i)->get_current_floor() << std::endl;
+        std::cout << "Elevator: " << i+1 << " is at floor: " << elevators->at(i)->get_current_floor() << std::endl;
     }
 	int inputFloor;
 	int direction;
