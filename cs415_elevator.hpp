@@ -6,23 +6,24 @@
  ***********************/
 #include <iostream>
 #include <queue>
+#include <unistd.h>
 class cs415_elevator
 {
 public:
     //  Constructor & Desconstructor
     cs415_elevator();
     ~cs415_elevator();
-    
+
     void call(int direction);
     void move_up();
     void move_down();
-    
+
     int get_current_floor();
     void set_current_floor(int floor);
-    
+
     int get_req_floor();
     void set_req_floor(int floor);
-    
+
     void setMax(int MAX);
     void executeQueue();
 private:
@@ -33,7 +34,7 @@ private:
             return l > r;
         }
     };
-    
+
     int maxFloors;
     int currentFloor;
     int floorReq;
@@ -43,7 +44,8 @@ private:
     std::queue<int> floorQueue;
     std::priority_queue<int,std::vector<int>, compare > minQueue;
     enum direction { DOWN = -1, IDLE = 0, UP = 1 };
-    
-    
+
+
 };
 #endif
+
