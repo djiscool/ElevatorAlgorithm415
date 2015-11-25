@@ -26,6 +26,17 @@ public:
 
     void setMax(int MAX);
     void executeQueue();
+    bool minQempty();
+    bool maxQempty();
+    int get_direction();
+	void set_direction(int dirtn);
+    int get_minq_top();
+    int get_maxq_top();
+    void push_maxq(int var);
+    void push_minq(int var);
+    void pop_minq();
+    void pop_maxq();
+
 private:
     struct compare
     {
@@ -43,7 +54,9 @@ private:
     std::priority_queue<int> maxQueue;
     std::queue<int> floorQueue;
     std::priority_queue<int,std::vector<int>, compare > minQueue;
-    enum direction { DOWN = -1, IDLE = 0, UP = 1 };
+const int DOWN = -1;
+const int IDLE = 0;
+const int UP = 1;
 
 
 };
