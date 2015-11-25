@@ -66,7 +66,8 @@ void cs415_elevator::executeQueue() {
 
             }
             minQueue.pop();
-			std::cout << "moving up ......." << std::endl;
+
+            std::cout << "moving up ......." << std::endl;
             while (currentFloor < flr) {
 
                 sleep(1);
@@ -89,9 +90,10 @@ void cs415_elevator::executeQueue() {
 
             }
             maxQueue.pop();
-			std::cout << "moving down ......." << std::endl;
+
+            std::cout << "moving down ......." << std::endl;
             while (currentFloor > flr) {
-                
+
                 sleep(1);
                 std::cout << "moved to " << currentFloor << std::endl;
                 move_down();
@@ -159,3 +161,42 @@ void cs415_elevator::set_req_floor(int floor)
     floorReq = floor;
 }
 
+bool cs415_elevator::minQempty() {
+    return minQueue.empty();
+}
+
+bool cs415_elevator::maxQempty() {
+    return maxQueue.empty();
+}
+
+int cs415_elevator::get_direction() {
+    return direction;
+}
+
+void cs415_elevator::set_direction(int dirtn) {
+    direction = dirtn;
+}
+
+int cs415_elevator::get_minq_top() {
+    return minQueue.top();
+}
+
+int cs415_elevator::get_maxq_top() {
+    return maxQueue.top();
+}
+
+void cs415_elevator::push_maxq(int var) {
+    maxQueue.push(var);
+}
+
+void cs415_elevator::push_minq(int var) {
+    minQueue.push(var);
+}
+
+void cs415_elevator::pop_minq() {
+    minQueue.pop();
+}
+
+void cs415_elevator::pop_maxq() {
+    maxQueue.pop();
+}
