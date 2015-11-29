@@ -2,6 +2,8 @@
 #define __PRINTER__
 /***********************
  * Class managing the visual representation of a building.
+ * Does not keep track of where the elevator is, that is solely the job of 
+ * main (which in this case is handled by cs415_elevator class)
  *
  ***********************/
 #include <iostream>

@@ -47,7 +47,7 @@ void printer::createBuilding(int floors, int elevator_amount) {
         }
     }
     for (int x = 0; x < elevators; x++)
-        building[floors][(((width) / 2) - x)] = 'X';
+        building[1][(((width) / 2) - x)] = 'X';
 
 
 }
@@ -61,7 +61,7 @@ void printer::upFloor(int whichElevator, int floors, int currentLevel) {
 
         // redundant but takes care of our base case, and if floors passed in is 0
 
-        building[currentLevel][whichElevator] = 'X';
+        building[currentLevel][elevator_number] = 'X';
         return;
     }
 
@@ -124,7 +124,7 @@ void printer::downFloor (int whichElevator, int floors, int currentLevel) {
 
         // redundant but takes care of our base case, and case where inital floors is 0
 
-        building[currentLevel][whichElevator] = 'X';
+        building[currentLevel][elevator_number] = 'X';
 
         return;
 
@@ -148,7 +148,7 @@ downFloor(whichElevator, floors -1, currentLevel-1);
 }
 
 
-void printer::printBuilding() {
+void printer::printBuilding() { //prints upside down (needs fix)
 for ( const auto &row : building )
     {
 for ( const auto &s : row ) std::cout << s << ' ';
