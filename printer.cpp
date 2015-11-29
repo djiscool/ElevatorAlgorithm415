@@ -47,7 +47,7 @@ void printer::createBuilding(int floors, int elevator_amount) {
         }
     }
     for (int x = 0; x < elevators; x++)
-        building[1][(((width) / 2) - x)] = 'X';
+        building[1][position_of[x]] = 'X';
 
 
 }
