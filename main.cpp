@@ -72,13 +72,33 @@ void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, pr
     else {
         elevators->at(whichElevator)->set_direction(UP);
     }
-    executeQueue(0, elevators, elvPrinter);
+    executeQueue(whichElevator, elevators, elvPrinter);
     elevators->at(whichElevator)->set_direction(IDLE);
     std::cout << "Elevator is IDLE" << std::endl;
 }
 
-void chooseElevatorForMe(int floor, int* whichElevator) {
+int chooseElevator(int floor, int direction) {
+	// for each elevator
+	// get its current floor
+	// get its direction
+	// compare what elevator is closest, and going the same direction
+	
+	// if idle elvator is as good as another elevator
+	// choose the idle elevator
+	
+	// return chosen elevator
 
+}
+
+bool isElevatorThere(int floor){
+	// loop through each elevator
+	//get current floor
+	// if floor = elevator->currentfloor()
+	// return true
+	
+	// end loop
+	return false;
+	
 }
 
 int main(int argc, char **argv)
@@ -108,8 +128,9 @@ int main(int argc, char **argv)
     }
 
     std::cout << "Elevators installed: " << elevators->size() << std::endl;
-    elevators->at(0)->setMax(buildingFloors);
+    
     for (int i = 0; i < numElevators; i++) {
+		elevators->at(i)->setMax(buildingFloors);
         std::cout << "Elevator: " << i+1 << " is at floor: " << elevators->at(i)->get_current_floor() << std::endl;
     }
     int inputFloor;
@@ -117,7 +138,9 @@ int main(int argc, char **argv)
     bool more = true;
     //loop for running elevator, elevator dies when exited.
     while (more) {
-        std::cout << "Elevator at: " << elevators->at(0)->get_current_floor() << std::endl;
+		for (int i = 0; i < numElevators; i++) { // we can take this for loop out.
+        std::cout << "Elevator at: " << elevators->at(i)->get_current_floor() << std::endl;
+		}
         //loop(the do-while one) to get input, elevator does not move until this loop ends
         do {
             //Get input
@@ -126,7 +149,7 @@ int main(int argc, char **argv)
             if (inputFloor == -1) {
                 break;
             }
-            if (inputFloor == elevators->at(0)->get_current_floor()) {
+            if (isElevatorThere(inputFloor)) {
                 std::cout << "Elevator already there!" << std::endl;
                 continue;
             }
@@ -144,9 +167,10 @@ int main(int argc, char **argv)
                 direction = UP;
             if (direction == 2)
                 direction = DOWN;
-            elevators->at(0)->set_req_floor(inputFloor);
+			int chosen_elevator = whichElevator(inputFloor, 2);
+            elevators->at(chosen_elevator)->set_req_floor(inputFloor);
             //store input
-            elevators->at(0)->call(direction);
+            elevators->at(chosen_elevator)->call(direction);
 
 
         } while ((direction == -1 || direction == 1) &&  inputFloor != -1) ;
@@ -158,7 +182,9 @@ int main(int argc, char **argv)
         char cont;
         std::cin >> cont;
         if (cont == 'n' || cont == 'N') {
-            std::cout << "Elevators' final resting place is: " << elevators->at(0)->get_current_floor() << std::endl;
+			for (int i = 0; i < numElevators; i++) {
+            std::cout << "Elevator " << i << "'s final resting place is: " << elevators->at(i)->get_current_floor() << std::endl;
+			}
             more = false;
         }
         std::cout << "-----------------------------------------------" << std::endl;
