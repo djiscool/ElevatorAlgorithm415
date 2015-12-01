@@ -135,7 +135,7 @@ void printer::downFloor (int whichElevator, int floors, int currentLevel) {
 
     building[currentLevel][elevator_number] = ' ';
 
-    building[currentLevel+1][elevator_number] = 'X';
+    building[currentLevel-1][elevator_number] = 'X';
 
 
 //std::cout << "currentLevel: " << currentLevel << endl;
