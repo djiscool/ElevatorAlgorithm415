@@ -6,10 +6,11 @@
 #include "cs415_elevator.hpp"
 #include "printer.hpp"
 
-void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, printer* elvPrinter) {
     const int DOWN = -1;
     const int IDLE = 0;
     const int UP = 1;
+
+void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, printer* elvPrinter) {
     //go through queue to each floor
     if (elevators->at(whichElevator)->maxQempty() && elevators->at(whichElevator)->minQempty()) { // a little bit of recursion in my life
         return;
@@ -30,11 +31,11 @@ void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, pr
             while (elevators->at(whichElevator)->get_current_floor() < flr) {
 
                 sleep(1);
-				int curflr = elevators->at(whichElevator)->get_current_floor();
+                int curflr = elevators->at(whichElevator)->get_current_floor();
                 std::cout << "moved to " << curflr << std::endl;
                 elevators->at(whichElevator)->move_up();
-				elvPrinter->upFloor (0, 1, curflr);
-				elvPrinter->printBuilding();
+                elvPrinter->upFloor (0, 1, curflr);
+                elvPrinter->printBuilding();
             }
 
             std::cout << "Arriving at requested floor: " << flr << std::endl;
@@ -56,11 +57,11 @@ void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, pr
             while (elevators->at(whichElevator)->get_current_floor() > flr) {
 
                 sleep(1);
-				int curflr = elevators->at(whichElevator)->get_current_floor();
+                int curflr = elevators->at(whichElevator)->get_current_floor();
                 std::cout << "moved to " << curflr << std::endl;
                 elevators->at(whichElevator)->move_down();
-				elvPrinter->downFloor(0,1, curflr);
-				elvPrinter->printBuilding();
+                elvPrinter->downFloor(0,1, curflr);
+                elvPrinter->printBuilding();
             }
             std::cout << "Arriving at requested floor: " << flr << std::endl;
 
@@ -77,28 +78,80 @@ void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, pr
     std::cout << "Elevator is IDLE" << std::endl;
 }
 
-int chooseElevator(int floor, int direction) {
-	// for each elevator
-	// get its current floor
-	// get its direction
-	// compare what elevator is closest, and going the same direction
-	
-	// if idle elvator is as good as another elevator
-	// choose the idle elevator
-	
-	// return chosen elevator
+int chooseElevator(int floor, int direction, int numElevators, std::vector<cs415_elevator*> *elevators) {
+    int theChosenOne = 0;
 
+    int difference = 0;
+
+    bool isIdle = true;
+
+    // for each elevator
+
+    for (int i = 0; i < numElevators; i++) {
+        // get its current floor
+
+        int curFlr = elevators->at(i)->get_current_floor();
+        // get its direction
+
+        int curDir = elevators->at(i)->get_direction();
+        // compare what elevator is closest, and going the same direction
+        if (curDir != direction) {
+
+            continue;
+
+        }
+
+        int temp = abs(elevators->at(theChosenOne)->get_current_floor() - floor); // how far away the elevator
+
+        // is from the requested floor.
+
+
+
+        if (temp < difference) {
+
+            theChosenOne = i;
+
+            difference = temp;
+
+        }
+
+
+        // if idle elvator is as good as another elevator
+        // choose the idle elevator
+
+        if ((curDir == IDLE && isIdle == false) && (temp == difference)) {
+
+            theChosenOne = i;
+
+            difference = temp;
+
+            isIdle = true;
+
+        }
+
+    }
+    // return chosen elevator
+    return theChosenOne;
 }
 
-bool isElevatorThere(int floor){
-	// loop through each elevator
-	//get current floor
-	// if floor = elevator->currentfloor()
-	// return true
-	
-	// end loop
-	return false;
-	
+bool isElevatorThere(int floor, int numElevators, std::vector<cs415_elevator*> *elevators) {
+    // loop through each elevator
+    for (int i = 0; i < numElevators; i++) {
+        int curFlr = elevators->at(i)->get_current_floor();
+        // if floor = elevator->currentfloor()
+
+        if (floor == curFlr) {
+
+            // return true
+
+            return true;
+
+        }
+
+    }
+    // end loop
+    return false;
+
 }
 
 int main(int argc, char **argv)
@@ -108,9 +161,6 @@ int main(int argc, char **argv)
     int buildingFloors = 0;
     int numElevators = 0;
 
-    const int DOWN = -1;
-    const int IDLE = 0;
-    const int UP = 1;
 
     //Get Input
     std::cout << "Building has how many floors? ";
@@ -128,9 +178,9 @@ int main(int argc, char **argv)
     }
 
     std::cout << "Elevators installed: " << elevators->size() << std::endl;
-    
+
     for (int i = 0; i < numElevators; i++) {
-		elevators->at(i)->setMax(buildingFloors);
+        elevators->at(i)->setMax(buildingFloors);
         std::cout << "Elevator: " << i+1 << " is at floor: " << elevators->at(i)->get_current_floor() << std::endl;
     }
     int inputFloor;
@@ -138,9 +188,9 @@ int main(int argc, char **argv)
     bool more = true;
     //loop for running elevator, elevator dies when exited.
     while (more) {
-		for (int i = 0; i < numElevators; i++) { // we can take this for loop out.
-        std::cout << "Elevator at: " << elevators->at(i)->get_current_floor() << std::endl;
-		}
+        for (int i = 0; i < numElevators; i++) { // we can take this for loop out.
+            std::cout << "Elevator at: " << elevators->at(i)->get_current_floor() << std::endl;
+        }
         //loop(the do-while one) to get input, elevator does not move until this loop ends
         do {
             //Get input
@@ -149,7 +199,7 @@ int main(int argc, char **argv)
             if (inputFloor == -1) {
                 break;
             }
-            if (isElevatorThere(inputFloor)) {
+            if (isElevatorThere(inputFloor, numElevators, elevators)) {
                 std::cout << "Elevator already there!" << std::endl;
                 continue;
             }
@@ -167,24 +217,26 @@ int main(int argc, char **argv)
                 direction = UP;
             if (direction == 2)
                 direction = DOWN;
-			int chosen_elevator = whichElevator(inputFloor, 2);
+            int chosen_elevator = chooseElevator(inputFloor, direction, numElevators, elevators);
             elevators->at(chosen_elevator)->set_req_floor(inputFloor);
             //store input
             elevators->at(chosen_elevator)->call(direction);
 
 
         } while ((direction == -1 || direction == 1) &&  inputFloor != -1) ;
-        //move elevator
-        executeQueue(0, elevators, elvPrinter); // need to move this to main so I can use the printer.
-        elvPrinter->printBuilding();
+        //move elevators
+        for (int i = 0; i < numElevators; i++) {
+            executeQueue(i, elevators, elvPrinter);
+            elvPrinter->printBuilding();
+        }
 
         std::cout << "continue? (y/n): ";
         char cont;
         std::cin >> cont;
         if (cont == 'n' || cont == 'N') {
-			for (int i = 0; i < numElevators; i++) {
-            std::cout << "Elevator " << i << "'s final resting place is: " << elevators->at(i)->get_current_floor() << std::endl;
-			}
+            for (int i = 0; i < numElevators; i++) {
+                std::cout << "Elevator " << i << "'s final resting place is: " << elevators->at(i)->get_current_floor() << std::endl;
+            }
             more = false;
         }
         std::cout << "-----------------------------------------------" << std::endl;
@@ -196,4 +248,5 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
 
