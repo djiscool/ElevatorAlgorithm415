@@ -227,7 +227,7 @@ int main(int argc, char **argv)
         //move elevators
         for (int i = 0; i < numElevators; i++) {
             executeQueue(i, elevators, elvPrinter);
-            elvPrinter->printBuilding();
+            //elvPrinter->printBuilding();
         }
 
         std::cout << "continue? (y/n): ";

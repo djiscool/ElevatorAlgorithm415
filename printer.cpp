@@ -149,10 +149,12 @@ downFloor(whichElevator, floors -1, currentLevel-1);
 
 
 void printer::printBuilding() { //prints upside down (needs fix)
-for ( const auto &row : building )
-    {
-for ( const auto &s : row ) std::cout << s << ' ';
-        std::cout << std::endl;
-    }
-
+for (int i = building.size()-1; i > 0; i--)
+  {
+    for (int j = 0; j < width; j++)
+      {
+	 std::cout << building[i][j];
+      }
+    std::cout << std::endl;
+  }
 }
