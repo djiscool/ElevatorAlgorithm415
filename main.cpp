@@ -34,7 +34,7 @@ void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, pr
                 int curflr = elevators->at(whichElevator)->get_current_floor();
                 std::cout << "moved to " << curflr << std::endl;
                 elevators->at(whichElevator)->move_up();
-                elvPrinter->upFloor (0, 1, curflr);
+                elvPrinter->upFloor (whichElevator, 1, curflr);
                 elvPrinter->printBuilding();
             }
 
@@ -60,7 +60,7 @@ void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, pr
                 int curflr = elevators->at(whichElevator)->get_current_floor();
                 std::cout << "moved to " << curflr << std::endl;
                 elevators->at(whichElevator)->move_down();
-                elvPrinter->downFloor(0,1, curflr);
+                elvPrinter->downFloor(whichElevator,1, curflr);
                 elvPrinter->printBuilding();
             }
             std::cout << "Arriving at requested floor: " << flr << std::endl;
@@ -81,7 +81,7 @@ void executeQueue(int whichElevator, std::vector<cs415_elevator*> *elevators, pr
 int chooseElevator(int floor, int direction, int numElevators, std::vector<cs415_elevator*> *elevators) {
     int theChosenOne = 0;
 
-    int difference = 0;
+    int difference = 15;
 
     bool isIdle = true;
 
@@ -95,16 +95,17 @@ int chooseElevator(int floor, int direction, int numElevators, std::vector<cs415
 
         int curDir = elevators->at(i)->get_direction();
         // compare what elevator is closest, and going the same direction
-        if (curDir != direction) {
+		std::cout << "elevator " << i << ": " << curFlr << std::endl;
+/*         if (curDir != direction) {
 
             continue;
 
-        }
+        } */
 
-        int temp = abs(elevators->at(theChosenOne)->get_current_floor() - floor); // how far away the elevator
+        int temp = abs(elevators->at(i)->get_current_floor() - floor); // how far away the elevator
 
         // is from the requested floor.
-
+		std::cout << "difference : " << temp << std::endl;
 
 
         if (temp < difference) {
@@ -114,6 +115,9 @@ int chooseElevator(int floor, int direction, int numElevators, std::vector<cs415
             difference = temp;
 
         }
+		if (curFlr == floor){
+			return i;
+		}
 
 
         // if idle elvator is as good as another elevator
@@ -131,7 +135,8 @@ int chooseElevator(int floor, int direction, int numElevators, std::vector<cs415
 
     }
     // return chosen elevator
-    return theChosenOne;
+    std::cout << "chosen elevator : " << theChosenOne << std::endl;
+	return theChosenOne;
 }
 
 bool isElevatorThere(int floor, int numElevators, std::vector<cs415_elevator*> *elevators) {
@@ -218,7 +223,8 @@ int main(int argc, char **argv)
             if (direction == 2)
                 direction = DOWN;
             int chosen_elevator = chooseElevator(inputFloor, direction, numElevators, elevators);
-            elevators->at(chosen_elevator)->set_req_floor(inputFloor);
+            std::cout << "chosen elevator : " << chosen_elevator << std::endl;
+			elevators->at(chosen_elevator)->set_req_floor(inputFloor);
             //store input
             elevators->at(chosen_elevator)->call(direction);
 
